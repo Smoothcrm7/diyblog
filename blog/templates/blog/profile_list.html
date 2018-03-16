@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Profile List</h1>
+
+    {% if profile_list %}
+    <ul>
+
+      {% for user in profile_list %}
+      <li>
+        {{ profile.user }}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no bloggers registered on this site.</p>
+    {% endif %}
+{% endblock %}
