@@ -3,6 +3,9 @@
 {% block content %}
   <h1>Blogger Name: {{ profile.user }}</h1>
 
+  <h4>Bio</h4>
+    {{profile.bio}}
+
     <h4>Blog Posts</h4>
     <ul>
     {% for blog in profile.blog_set.all %}

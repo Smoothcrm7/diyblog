@@ -32,8 +32,8 @@ class Blog(models.Model):
 
 
 class Comments(models.Model):
-    commenter = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    post_date = models.DateTimeField(verbose_name="Post Date")
+    commenter = models.CharField(max_length=50)
+    post_date = models.DateTimeField(verbose_name="Post Date", auto_now_add=True)
     description = models.TextField(max_length=250, help_text='Enter comment about blog here.')
     blog_id = models.ForeignKey('Blog', on_delete=models.CASCADE)
 

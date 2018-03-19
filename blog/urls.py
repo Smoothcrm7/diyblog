@@ -10,5 +10,5 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('blog/<int:pk>/create/', views.CommentCreate.as_view(), name='comment_create'),
+    path('blog/<int:pk>/create/', views.CommentCreate.as_view(), name='comment-create'),
 ]
