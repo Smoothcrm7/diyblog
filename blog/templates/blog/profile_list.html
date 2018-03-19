@@ -6,9 +6,9 @@
     {% if profile_list %}
     <ul>
 
-      {% for user in profile_list %}
+      {% for profile in profile_list %}
       <li>
-        {{ profile.user }}
+         <a href="{{ profile.get_absolute_url }}">{{ profile.user }}</a>
       </li>
       {% endfor %}
 

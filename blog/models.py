@@ -7,9 +7,9 @@ from django.urls import reverse
 
 class Blog(models.Model):
     title = models.CharField(max_length=250)
-    blogger = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    blogger = models.ForeignKey('Profile', on_delete=models.CASCADE)
     description = models.TextField()
-    post_date = models.DateTimeField(verbose_name="Post Date")
+    post_date = models.DateField(auto_now_add=True,verbose_name="Post Date")
 
     def get_absolute_url(self):
         return reverse('blog-detail', args=[str(self.id)])
@@ -18,11 +18,17 @@ class Blog(models.Model):
         self.post_date = timezone.now()
         self.save()
 
+    def bloggerGrab(self):
+        """
+        Returns the url to access a particular author instance.
+        """
+        return reverse('profile-detail', args=[str(self.blogger.id)])
+
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ["post_date"]
+        ordering = ["-post_date"]
 
 
 class Comments(models.Model):
@@ -46,7 +52,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
 
     def get_absolute_url(self):
-        return reverse('blogger-detail', args=[str(self.id)])
+        return reverse('profile-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.user
+        return str(self.user.username)

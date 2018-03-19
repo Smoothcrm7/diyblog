@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 
@@ -11,12 +14,12 @@ def index(request):
     num_blogs=Blog.objects.all().count()
     num_visits=request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits+1
-    num_bloggers=User.objects.all().count()
+    bloggercount=Profile.objects.all().count()
 
     return render(
         request,
         'index.html',
-        context={'num_blogs':num_blogs},
+        context={'num_blogs':num_blogs, 'bloggercount':bloggercount},
     )
 
 class BlogListView(generic.ListView):
@@ -28,3 +31,10 @@ class BlogDetailView(generic.DetailView):
 class ProfileListView(generic.ListView):
     model = Profile
 
+class ProfileDetailView(generic.DetailView):
+    model = Profile
+
+class CommentCreate(CreateView):
+    model = Comments
+    fields = ['description']
+    
