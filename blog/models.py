@@ -32,7 +32,7 @@ class Blog(models.Model):
 
 
 class Comments(models.Model):
-    commenter = models.CharField(max_length=50)
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
     post_date = models.DateTimeField(verbose_name="Post Date", auto_now_add=True)
     description = models.TextField(max_length=250, help_text='Enter comment about blog here.')
     blog_id = models.ForeignKey('Blog', on_delete=models.CASCADE)
@@ -44,6 +44,7 @@ class Comments(models.Model):
         ordering = ["post_date"]
 
     def comment(self):
+        self.post_date = timezone.now()
         self.save()
 
 
